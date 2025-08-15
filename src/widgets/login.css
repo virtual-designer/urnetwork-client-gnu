@@ -1,0 +1,21 @@
+.login_header {
+	font-size: 30px;
+	margin-top: 20px;
+}
+
+.login_form_box {
+	padding: 30px 20px;
+}
+
+.login_password_label, .login_button {
+	margin-top: 20px;
+}
+
+.login_email_label, .login_password_label {
+	margin-bottom: 5px;
+}
+
+.login_footer_box {
+	padding: 0 20px;
+	margin-top: 110px;
+}

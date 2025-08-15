@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <object class="GtkWindow" id="LoginWindow">
+    <property name="default-height">500</property>
+    <property name="default-width">400</property>
+    <property name="resizable">True</property>
+    <property name="title">Login to URNetwork</property>
+    <child>
+		<object class="GtkBox">
+			<property name="orientation">vertical</property>
+			<child>
+				<object class="GtkLabel">
+					<property name="label">URnetwork</property>
+					<property name="css-classes">login_header</property>
+				</object>
+			</child>
+
+			<child>
+				<object class="GtkBox">
+					<property name="orientation">vertical</property>
+					<property name="css-classes">login_form_box</property>
+
+					<child>
+						<object class="GtkLabel">
+							<property name="label">Email address</property>
+							<property name="css-classes">login_email_label</property>
+							<property name="halign">start</property>
+						</object>
+					</child>
+
+					<child>
+						<object class="GtkEntry">
+							<property name="placeholder-text">you@example.com</property>
+						</object>
+					</child>
+
+					<child>
+						<object class="GtkLabel">
+							<property name="label">Password</property>
+							<property name="css-classes">login_password_label</property>
+							<property name="halign">start</property>
+						</object>
+					</child>
+
+					<child>
+						<object class="GtkPasswordEntry">
+							<property name="placeholder-text">Your password</property>
+						</object>
+					</child>
+
+					<child>
+						<object class="GtkButton">
+							<property name="css-classes">login_button</property>
+
+							<child>
+								<object class="GtkLabel">
+									<property name="label">Login</property>
+								</object>
+							</child>
+						</object>
+					</child>
+				</object>
+			</child>
+
+			<child>
+				<object class="GtkBox">
+					<property name="css-classes">login_footer_box</property>
+					<property name="orientation">vertical</property>
+
+					<child>
+						<object class="GtkLabel">
+							<property name="use-markup">true</property>
+							<property name="label"><![CDATA[<a href="https://docs.ur.io">Docs</a> <span color="#999">•</span> <a href="mailto:ryan.mello@ur.io">Support</a>]]></property>
+						</object>
+					</child>
+				</object>
+			</child>
+		</object>
+    </child>
+  </object>
+</interface>
