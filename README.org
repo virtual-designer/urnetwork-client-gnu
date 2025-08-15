@@ -1,0 +1,11 @@
+#+title: URnetwork GUI Client
+
+* Introduction
+
+This is a GTK4 based GUI application that acts as a client for [[https://ur.io][URnetwork]].  Since
+it uses GTK4, all major platforms supported by GTK4 is also supported, but
+currently I am focusing more on GNU/Linux.
+
+* Licensing
+
+I haven't thought about that yet.
