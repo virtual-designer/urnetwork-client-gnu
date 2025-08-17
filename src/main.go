@@ -2,7 +2,9 @@ package main
 
 import (
 	"os"
+	"log"
 	"github.com/virtual-designer/urnetwork-client-gnu/widgets"
+	"github.com/virtual-designer/urnetwork-client-gnu/core"
 	"github.com/diamondburned/gotk4/pkg/gtk/v4"
 	"github.com/diamondburned/gotk4/pkg/gio/v2"
 )
@@ -21,8 +23,14 @@ func main() {
 	}
 }
 
-func onActivate (app *gtk.Application) {
-	window := widgets.NewLoginWindow()
+func onActivate(app *gtk.Application) {
+	authManager, err := core.NewAuthManager("")
+
+	if err == nil {
+		log.Printf("JWT: %s", authManager.Jwt)
+	}
+
+	window := widgets.NewAppWindow(authManager)
 	app.AddWindow(window.Cast().(*gtk.Window))
 	window.Show()
 }

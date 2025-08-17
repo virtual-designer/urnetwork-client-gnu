@@ -19,3 +19,8 @@
 	padding: 0 20px;
 	margin-top: 110px;
 }
+
+.login_error_label {
+	color: #f14a60;
+	margin-top: 5px;
+}

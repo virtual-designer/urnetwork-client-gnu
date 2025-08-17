@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk" version="4.0"/>
-  <object class="GtkWindow" id="LoginWindow">
-    <property name="default-height">500</property>
-    <property name="default-width">400</property>
-    <property name="resizable">True</property>
-    <property name="title">Login to URNetwork</property>
+  <object class="GtkBox" id="LoginView">
     <child>
 		<object class="GtkBox">
 			<property name="orientation">vertical</property>
+			<property name="hexpand">true</property>
 			<child>
 				<object class="GtkLabel">
 					<property name="label">URnetwork</property>
@@ -30,8 +27,17 @@
 					</child>
 
 					<child>
-						<object class="GtkEntry">
+						<object class="GtkEntry" id="EmailEntry">
 							<property name="placeholder-text">you@example.com</property>
+						</object>
+					</child>
+
+					<child>
+						<object class="GtkLabel" id="ErrorLabel">
+							<property name="label"></property>
+							<property name="css-classes">login_error_label</property>
+							<property name="halign">start</property>
+							<property name="visible">false</property>
 						</object>
 					</child>
 
@@ -44,13 +50,14 @@
 					</child>
 
 					<child>
-						<object class="GtkPasswordEntry">
+						<object class="GtkPasswordEntry" id="PasswordEntry">
 							<property name="placeholder-text">Your password</property>
+							<property name="show-peek-icon">true</property>
 						</object>
 					</child>
 
 					<child>
-						<object class="GtkButton">
+						<object class="GtkButton" id="LoginButton">
 							<property name="css-classes">login_button</property>
 
 							<child>
