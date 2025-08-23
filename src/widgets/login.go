@@ -57,7 +57,6 @@ func NewLoginView(authManager *core.AuthManager, stack *gtk.Stack) *LoginView {
 		password := passwordEntry.Text()
 
 		log.Println("Attempting Login")
-		log.Printf("Email: %s, Password: %s", email, password)
 
 		result, err := authManager.PerformAuth(email, password)
 

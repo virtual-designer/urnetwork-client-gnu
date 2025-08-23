@@ -6,6 +6,7 @@ import (
 	"log"
 	"fmt"
 	"errors"
+	"path/filepath"
 )
 
 type AuthManager struct {
@@ -32,11 +33,19 @@ func NewAuthManager(jwtFilePath string) (*AuthManager, error) {
 		jwtFilePath = GetDefaultJwtPath()
 	}
 
-	jwt, err := os.ReadFile(jwtFilePath)
+	jwtDirectory := filepath.Dir(jwtFilePath)
 	authManager := & AuthManager {
 		JwtFilePath: jwtFilePath,
 		Jwt: "",
 	}
+
+	err := os.MkdirAll(jwtDirectory, 0755)
+
+	if err != nil {
+		return authManager, err
+	}
+
+	jwt, err := os.ReadFile(jwtFilePath)
 
 	if err != nil {
 		return authManager, err
@@ -66,6 +75,12 @@ func (authManager *AuthManager) PerformAuth(email string, password string) (*API
 	}
 
 	authManager.Jwt = result.Network.Jwt
+
+	jwtDirectory := filepath.Dir(authManager.JwtFilePath)
+
+	if err := os.MkdirAll(jwtDirectory, 0755); err != nil {
+		return nil, err
+	}
 
 	if err := os.WriteFile(authManager.JwtFilePath, []byte(authManager.Jwt), 0644); err != nil {
 		return nil, errors.New("Cannot save JWT: " + err.Error())
