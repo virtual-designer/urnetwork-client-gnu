@@ -7,3 +7,26 @@
 	color: #999;
 	font-size: 17px;
 }
+
+.location_list_spinner {
+	min-height: 64px;
+	min-width: 64px;
+	margin-bottom: 10px;
+}
+
+.location_list_wrapper {
+	padding: 20px;
+}
+
+.location_list, .location_list_wrapper {
+	background-color: transparent;
+}
+
+.location_list row {
+	padding: 5px;
+	border-radius: 5px;
+}
+
+.connect_button {
+	margin: 20px;
+}

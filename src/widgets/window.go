@@ -41,7 +41,7 @@ func NewAppWindow(authManager *core.AuthManager) *AppWindow {
 	)
 
 	loginView := NewLoginView(authManager, stack)
-	mainView := NewMainView()
+	mainView := NewMainView(authManager)
 
 	stack.AddNamed(loginView.Cast().(gtk.Widgetter), "LoginView")
 	stack.AddNamed(mainView.Cast().(gtk.Widgetter), "MainView")
