@@ -4,7 +4,6 @@ import (
 	_ "embed"
 	"log"
 	"sort"
-	"os/exec"
 	"github.com/virtual-designer/urnetwork-client-gnu/core"
 	"github.com/diamondburned/gotk4/pkg/gtk/v4"
 	"github.com/diamondburned/gotk4/pkg/gdk/v4"
@@ -25,14 +24,13 @@ type MainView struct {
 	connectButton *gtk.Button
 	errorViewLabel *gtk.Label
 	errorViewWrapper *gtk.Box
-
-	connectInfoWrapper *gtk.Box
-	connectStatus *gtk.Label
+	stack *gtk.Stack
+	connectedView *ConnectedView
 }
 
-func (mainView *MainView) onConnectClick() {
-	mainView.connectInfoWrapper.SetVisible(true)
-	mainView.connectStatus.SetLabel("Connecting")
+func (mainView *MainView) onConnectClick(location *core.APILocationResult) {
+	mainView.stack.SetVisibleChildName("ConnectedView")
+	go mainView.connectedView.OnConnect(location)
 }
 
 func (mainView *MainView) loadLocations() {
@@ -74,11 +72,20 @@ func (mainView *MainView) loadLocations() {
 	})
 
 	connectButton.Connect("clicked", func() {
-		mainView.onConnectClick()
+		selected := locationList.SelectedRow()
+
+		if selected == nil {
+			return
+		}
+
+		index := selected.Index()
+		location := locations.Locations[index]
+
+		mainView.onConnectClick(location)
 	})
 }
 
-func NewMainView(authManager *core.AuthManager) *MainView {
+func NewMainView(authManager *core.AuthManager, stack *gtk.Stack, connectedView *ConnectedView) *MainView {
 	builder := gtk.NewBuilderFromString(mainUiXML)
 
 	cssProvider := gtk.NewCSSProvider()
@@ -87,14 +94,14 @@ func NewMainView(authManager *core.AuthManager) *MainView {
 	mainView := & MainView {
 		Box: builder.GetObject("MainView").Cast().(*gtk.Box),
 		authManager: authManager,
+		stack: stack,
+		connectedView: connectedView,
 		loadingBox: builder.GetObject("LoadingBox").Cast().(*gtk.Box),
 		locationList: builder.GetObject("LocationList").Cast().(*gtk.ListBox),
 		locationListWrapper: builder.GetObject("LocationListWrapper").Cast().(*gtk.Box),
 		connectButton: builder.GetObject("ConnectButton").Cast().(*gtk.Button),
 		errorViewLabel: builder.GetObject("ErrorViewLabel").Cast().(*gtk.Label),
 		errorViewWrapper: builder.GetObject("ErrorViewWrapper").Cast().(*gtk.Box),
-		connectInfoWrapper: builder.GetObject("ConnectInfoWrapper").Cast().(*gtk.Box),
-		connectStatus: builder.GetObject("ConnectStatusLabel").Cast().(*gtk.Label),
 	}
 
 	gtk.StyleContextAddProviderForDisplay(

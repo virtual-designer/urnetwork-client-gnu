@@ -40,19 +40,3 @@
 .error_icon, .error_label {
 	color: #f14a60;
 }
-
-.connect_info_wrapper {
-	margin: 20px;
-}
-
-.connect_info_prop_label, .connect_info_value_label {
-	font-size: 14px;
-}
-
-.connect_info_value_label {
-	color: #999;
-}
-
-.connect_info_prop_label {
-	font-weight: bold;
-}

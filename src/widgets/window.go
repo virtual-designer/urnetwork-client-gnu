@@ -41,10 +41,12 @@ func NewAppWindow(authManager *core.AuthManager) *AppWindow {
 	)
 
 	loginView := NewLoginView(authManager, stack)
-	mainView := NewMainView(authManager)
+	connectedView := NewConnectedView(stack)
+	mainView := NewMainView(authManager, stack, connectedView)
 
 	stack.AddNamed(loginView.Cast().(gtk.Widgetter), "LoginView")
 	stack.AddNamed(mainView.Cast().(gtk.Widgetter), "MainView")
+	stack.AddNamed(connectedView.Cast().(gtk.Widgetter), "ConnectedView")
 
 	if authManager.Jwt == "" {
 		stack.SetVisibleChildName("LoginView")

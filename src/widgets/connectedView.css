@@ -1,0 +1,21 @@
+.connect_info_wrapper, .disconnect_button {
+	margin: 20px;
+}
+
+.connecting_muted {
+	color: #999;
+}
+
+.connect_circle_wrapper {
+	margin-bottom: 80px;
+}
+
+
+.connect_status, .connect_status_connected {
+	font-size: 25px;
+}
+
+.connect_location {
+	font-size: 16px;
+	color: #999;
+}

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <object class="GtkBox" id="ConnectedView">
+	  <property name="orientation">vertical</property>
+	  <property name="hexpand">true</property>
+	  <property name="vexpand">true</property>
+
+	  <child>
+		  <object class="GtkBox" id="ConnectInfoWrapper">
+			  <property name="orientation">vertical</property>
+			  <property name="vexpand">true</property>
+			  <property name="valign">center</property>
+			  <property name="css-classes">connect_info_wrapper</property>
+
+			  <child>
+				  <object class="GtkBox" id="ConnectCircleWrapper">
+					  <property name="orientation">vertical</property>
+					  <property name="hexpand">true</property>
+					  <property name="valign">center</property>
+					  <property name="css-classes">connect_circle_wrapper</property>
+
+					  <child>
+						  <object class="GtkDrawingArea" id="ConnectCircle">
+							  <property name="halign">center</property>
+							  <property name="css-classes">connect_circle</property>
+						  </object>
+					  </child>
+				  </object>
+			  </child>
+
+			  <child>
+				  <object class="GtkLabel" id="ConnectStatusLabel">
+					  <property name="css-classes">connect_status</property>
+					  <property name="label">Connecting</property>
+					  <property name="valign">center</property>
+				  </object>
+			  </child>
+
+			  <child>
+				  <object class="GtkLabel" id="ConnectLocationLabel">
+					  <property name="css-classes">connect_location</property>
+					  <property name="label"></property>
+					  <property name="valign">center</property>
+				  </object>
+			  </child>
+		  </object>
+	  </child>
+
+	  <child>
+		  <object class="GtkButton" id="DisconnectButton">
+			  <property name="css-classes">disconnect_button</property>
+			  <property name="valign">end</property>
+			  <child>
+				  <object class="GtkLabel">
+					  <property name="label">Disconnect</property>
+				  </object>
+			  </child>
+		  </object>
+	  </child>
+  </object>
+</interface>
