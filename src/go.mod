@@ -6,7 +6,7 @@ require github.com/diamondburned/gotk4/pkg v0.3.1
 
 require (
 	github.com/KarpelesLab/weak v0.1.1 // indirect
-	github.com/golang-jwt/jwt/v5 v5.2.2 // indirect
+	github.com/golang-jwt/jwt/v5 v5.3.0 // indirect
 	github.com/golang/glog v1.2.5 // indirect
 	github.com/google/gopacket v1.1.19 // indirect
 	github.com/gorilla/websocket v1.5.3 // indirect
@@ -26,4 +26,6 @@ require (
 	src.agwa.name/tlshacks v0.0.0-20250628001001-c92050511ef4 // indirect
 )
 
-require github.com/urnetwork/connect v0.0.0-20250823054148-da86c1bde93e
+require github.com/urnetwork/connect v0.0.0-20250908165431-d2bd1683dffb
+
+replace github.com/devrandom0/urnetwork-client => ../../urnetwork-client

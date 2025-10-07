@@ -1,0 +1,89 @@
+name: Build
+on: [ push, pull_request ]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    - name: Checkout
+      uses: actions/checkout@v5
+
+    - name: Clone urnetwork-client repo
+      run: git clone https://github.com/devrandom0/urnetwork-client ../urnetwork-client
+
+    - name: Install Go
+      uses: actions/setup-go@v6
+      with:
+        go-version: '1.24.4'
+
+    - name: Build
+      run: cd src && go build && cd ../../urnetwork-client && go build
+
+    - name: Package built files
+      run: |
+        mkdir -p build/bin
+        install -m 0755 src/urnetwork-client-gnu build/bin/urnetwork-client-gui
+        install -m 0755 ../urnetwork-client/urnetwork-client build/bin/urnetwork-client
+		tar -cvzf build.tar.gz build
+
+	- name: Upload artifacts
+	  uses: actions/upload-artifact@v4
+      with:
+        name: build
+        path: build.tar.gz
+
+  release:
+    needs: [build]
+    if: github.repository_owner == 'virtual-designer' && github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+
+    - name: Prepare Git
+      run: |
+        echo "${{ secrets.COMMIT_GPG_KEY }}" > private.key
+        gpg --import private.key
+        rm -f private.key
+        git config --global user.signingkey "6AE7B08C68169452"
+        git config --global commit.gpgsign true
+
+    - name: Conventional Release Action
+      id: auto_release
+      uses: onesoft-sudo/conventional-release-action@main
+      with:
+        version-json-file: "./version.json"
+        git-user-name: "Conventional Release Action"
+        git-user-email: rakinar2@onesoftnet.eu.org
+        commit-message-format: "release: v%s [skip ci]"
+        git-sign-off: true
+        changelog-file: CHANGELOG.md
+        changelog-format: markdown
+        allowed-commit-types: feat,fix,refactor,perf,ci,build,test,revert,chore,release,deps
+
+    - name: Download Linux Release Artifact
+      uses: actions/download-artifact@v5
+      if: ${{ steps.auto_release.outputs.tag != '' }}
+      with:
+        name: build
+
+    - name: Prepare package
+      run: |
+        tar -xvf build.tar.gz
+        echo "${{ steps.auto_release.outputs.tag }}" > build/.version
+        mv build urnetwork-client-gui-${{ steps.auto_release.outputs.tag }}
+        tar -cvzf urnetwork-client-gui-${{ steps.auto_release.outputs.tag }}.tar.gz urnetwork-client-gui-${{ steps.auto_release.outputs.tag }}
+
+    - name: Create Release
+      id: create_release
+      uses: ncipollo/release-action@v1
+      if: ${{ steps.auto_release.outputs.tag != '' }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag: ${{ steps.auto_release.outputs.tag }}
+        name: ${{ steps.auto_release.outputs.tag }}
+        body: ${{ steps.auto_release.outputs.release_notes }}
+        artifactContentType: application/x-gzip
+        artifacts: |
+          urnetwork-client-gui-${{ steps.auto_release.outputs.tag }}.tar.gz
