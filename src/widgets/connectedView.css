@@ -2,6 +2,19 @@
 	margin: 20px;
 }
 
+.retry_button, .back_button {
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+.retry_button {
+	margin-bottom: 10px;
+}
+
+.back_button {
+	margin-bottom: 20px;
+}
+
 .connecting_muted {
 	color: #999;
 }
@@ -10,8 +23,7 @@
 	margin-bottom: 80px;
 }
 
-
-.connect_status, .connect_status_connected {
+.connect_status, .connect_status_connected, .connect_status_error {
 	font-size: 25px;
 }
 

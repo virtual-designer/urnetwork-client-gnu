@@ -17,6 +17,13 @@ type AppWindow struct {
 	*gtk.Window
 	authManager *core.AuthManager
 	stack *gtk.Stack
+	connectedView *ConnectedView
+}
+
+func (window *AppWindow) OnShutdown() {
+	if window.stack.VisibleChildName() == "ConnectedView" {
+		window.connectedView.OnDisconnect()
+	}
 }
 
 func NewAppWindow(authManager *core.AuthManager) *AppWindow {
@@ -27,11 +34,15 @@ func NewAppWindow(authManager *core.AuthManager) *AppWindow {
 
 	gtkWindow := builder.GetObject("AppWindow").Cast().(*gtk.Window)
 	stack := builder.GetObject("ViewStack").Cast().(*gtk.Stack)
+	loginView := NewLoginView(authManager, stack)
+	connectedView := NewConnectedView(authManager, stack)
+	mainView := NewMainView(authManager, stack, connectedView)
 
 	window := & AppWindow {
 		Window: gtkWindow,
 		authManager: authManager,
 		stack: stack,
+		connectedView: connectedView,
 	}
 
 	gtk.StyleContextAddProviderForDisplay(
@@ -39,10 +50,6 @@ func NewAppWindow(authManager *core.AuthManager) *AppWindow {
 		cssProvider,
 		gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
 	)
-
-	loginView := NewLoginView(authManager, stack)
-	connectedView := NewConnectedView(stack)
-	mainView := NewMainView(authManager, stack, connectedView)
 
 	stack.AddNamed(loginView.Cast().(gtk.Widgetter), "LoginView")
 	stack.AddNamed(mainView.Cast().(gtk.Widgetter), "MainView")

@@ -23,6 +23,8 @@
 					  <child>
 						  <object class="GtkDrawingArea" id="ConnectCircle">
 							  <property name="halign">center</property>
+							  <property name="height-request">140</property>
+							  <property name="width-request">140</property>
 							  <property name="css-classes">connect_circle</property>
 						  </object>
 					  </child>
@@ -54,6 +56,31 @@
 			  <child>
 				  <object class="GtkLabel">
 					  <property name="label">Disconnect</property>
+				  </object>
+			  </child>
+		  </object>
+	  </child>
+
+	  <child>
+		  <object class="GtkButton" id="RetryButton">
+			  <property name="css-classes">retry_button</property>
+			  <property name="valign">end</property>
+			  <child>
+				  <object class="GtkLabel">
+					  <property name="label">Retry</property>
+				  </object>
+			  </child>
+		  </object>
+	  </child>
+
+	  <child>
+		  <object class="GtkButton" id="BackButton">
+			  <property name="css-classes">back_button</property>
+			  <property name="valign">end</property>
+			  <property name="visible">false</property>
+			  <child>
+				  <object class="GtkLabel">
+					  <property name="label">Go back</property>
 				  </object>
 			  </child>
 		  </object>

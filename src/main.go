@@ -33,4 +33,8 @@ func onActivate(app *gtk.Application) {
 	window := widgets.NewAppWindow(authManager)
 	app.AddWindow(window.Cast().(*gtk.Window))
 	window.Show()
+
+	app.ConnectShutdown(func () {
+		window.OnShutdown()
+	})
 }

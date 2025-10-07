@@ -41,11 +41,8 @@ type APILocationResult struct {
 	LocationId   *connect.Id  `json:"location_id"`
 	LocationType string       `json:"location_type"`
 	Name         string       `json:"name"`
-	// FIXME
 	City string `json:"city,omitempty"`
-	// FIXME
 	Region string `json:"region,omitempty"`
-	// FIXME
 	Country           string      `json:"country,omitempty"`
 	CountryCode       string      `json:"country_code,omitempty"`
 	CityLocationId    *connect.Id `json:"city_location_id,omitempty"`
