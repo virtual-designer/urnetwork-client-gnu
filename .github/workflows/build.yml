@@ -15,7 +15,7 @@ jobs:
           run: git clone https://github.com/devrandom0/urnetwork-client ../urnetwork-client
 
         - name: Install dependencies
-          run: sudo apt-get install libgtk-4-dev
+          run: sudo apt-get install libgtk-4-dev gobject-introspection libgirepository1.0-dev
         
         - name: Install Go
           uses: actions/setup-go@v6
