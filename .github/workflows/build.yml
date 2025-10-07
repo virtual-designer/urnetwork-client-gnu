@@ -74,6 +74,7 @@ jobs:
             name: build
         
         - name: Prepare package
+          if: ${{ steps.auto_release.outputs.tag != '' }}
           run: |
             tar -xvf build.tar.gz
             echo "${{ steps.auto_release.outputs.tag }}" > build/.version
